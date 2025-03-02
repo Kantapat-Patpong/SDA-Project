@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import randomLetter from '../functions/random_letter.js';
 import letterDetection from '../functions/letter_detection.js';
+import './player_zone.css';
 
 const PlayerZone = ({ onDamage }) => {
   const [currentLetter, setCurrentLetter] = useState(randomLetter());
@@ -22,10 +23,10 @@ const PlayerZone = ({ onDamage }) => {
   };
 
   return (
-    <div>
-      <p>Type: {currentLetter}</p>
-      <p>Next: {nextLetter}</p>
-      <p>Damage: {damage}</p>
+    <div class='player-zone'>
+      <p class='text-current'>Type: {currentLetter}</p>
+      <p class='text'>Next: {nextLetter}</p>
+      <p class='text'>Damage: {damage}</p>
       <input
         type="text"
         value={userInput}
