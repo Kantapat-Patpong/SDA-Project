@@ -17,8 +17,7 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1>Pop Cat: Typing Edition</h1>
+    <div class='container'>
       <BossZone bossHealth={bossHealth} />
       <PlayerZone onDamage={handleDamage} />
     </div>
