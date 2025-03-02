@@ -3,7 +3,7 @@ import './boss_zone.css';
 
 const BossZone = ({ bossHealth }) => {
   return (
-    <div>
+    <div class='boss-zone'>
       <img src='../../images/boss.png' alt='boss'/>
       <h2>Boss Health: {bossHealth}</h2>
     </div>
