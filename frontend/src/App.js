@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import BossZone from './components/boss_zone';
+import PlayerZone from './components/player_zone';
+import health from './functions/health';
 
-function App() {
+const App = () => {
+  const [bossHealth, setBossHealth] = useState(100000);
+
+  const handleDamage = (damageAmount) => {
+    if (bossHealth - damageAmount <= 0) {
+      setBossHealth(0);
+    } else {
+      setBossHealth(bossHealth - damageAmount);
+    }
+    health(bossHealth);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Pop Cat: Typing Edition</h1>
+      <BossZone bossHealth={bossHealth} />
+      <PlayerZone onDamage={handleDamage} />
     </div>
   );
-}
+};
 
 export default App;
