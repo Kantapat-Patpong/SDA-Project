@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import randomLetter from '../functions/random_letter.js';
 import letterDetection from '../functions/letter_detection.js';
 import damage from '../functions/damage.js';
