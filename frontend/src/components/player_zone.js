@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import randomLetter from '../functions/random_letter.js';
 import letterDetection from '../functions/letter_detection.js';
-import damage from '../functions/damage.js';
 
 const PlayerZone = ({ onDamage }) => {
   const [currentLetter, setCurrentLetter] = useState(randomLetter());
+  const [damage, setDamage] = useState(0)
   const [nextLetter, setNextLetter] = useState(randomLetter());
   const [userInput, setUserInput] = useState('');
 
@@ -14,6 +14,7 @@ const PlayerZone = ({ onDamage }) => {
 
     if (letterDetection(input, currentLetter)) {
       onDamage(1); // กำหนดค่าความเสียหาย
+      setDamage(damage + 1);
       setCurrentLetter(nextLetter);
       setNextLetter(randomLetter());
       setUserInput('');
@@ -24,6 +25,7 @@ const PlayerZone = ({ onDamage }) => {
     <div>
       <p>Type: {currentLetter}</p>
       <p>Next: {nextLetter}</p>
+      <p>Damage: {damage}</p>
       <input
         type="text"
         value={userInput}
