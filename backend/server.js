@@ -1,7 +1,11 @@
 const express = require('express');
 const { createClient } = require('@redis/client');
+const cors = require('cors');
 const app = express();
 const port = 3001;
+
+app.use(express.json());  // ให้ Express แปลง JSON request body
+app.use(cors());
 
 // เชื่อมต่อกับ Redis ที่อยู่ในคอนเทนเนอร์ Docker
 const redisClient = createClient({
@@ -18,25 +22,37 @@ redisClient.connect()
 
 // Route สำหรับเช็คเลือดบอส
 app.get('/boss/hp', async (req, res) => {
-  try {
-    const bossHealth = await redisClient.get('bossHealth');
-    res.json({ bossHealth: bossHealth || 100000 });  // ถ้ายังไม่ตั้งค่าไว้ จะคืนค่า 100000
-  } catch (err) {
-    res.status(500).send('Error getting boss health');
-  }
-});
+    try {
+      const bossHealth = await redisClient.get('bossHealth');
+      res.json({ bossHealth: bossHealth || 100000 });  // ส่งข้อมูลกลับไปยัง frontend
+    } catch (error) {
+      console.error('Error fetching boss health:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  
 
 // Route สำหรับลดเลือดบอส (GET)
-app.get('/boss/hit', async (req, res) => {
+app.post('/boss/hit', async (req, res) => {
     try {
-      const currentHealth = await redisClient.get('bossHealth') || 100000;
-      const newHealth = currentHealth - 1;  // ลดเลือดบอสลง 1
-      await redisClient.set('bossHealth', newHealth);
-      res.json({ newHealth });
-    } catch (err) {
-      res.status(500).send('Error hitting boss');
+        const { damage } = req.body;  // ดึง damage จาก body
+        if (!damage || typeof damage !== 'number') {
+            return res.status(400).json({ error: 'Invalid damage value' });
+        }
+
+        let bossHealth = await redisClient.get('bossHealth');  
+        bossHealth = bossHealth ? parseInt(bossHealth) : 100000;
+
+        bossHealth -= damage;
+        await redisClient.set('bossHealth', bossHealth);
+
+        res.json({ bossHealth });
+
+    } catch (error) {
+        console.error('Error handling hit request:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
-  });  
+});
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
