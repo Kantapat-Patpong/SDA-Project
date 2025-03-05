@@ -9,12 +9,12 @@ const PlayerZone = ({ onDamage }) => {
   const [nextLetter, setNextLetter] = useState(randomLetter());
   const [userInput, setUserInput] = useState('');
 
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
     const input = e.target.value;
     setUserInput(input);
 
     if (letterDetection(input, currentLetter)) {
-      onDamage(1); // กำหนดค่าความเสียหาย
+      await onDamage(1); // กำหนดค่าความเสียหาย
       setDamage(damage + 1);
       setCurrentLetter(nextLetter);
       setNextLetter(randomLetter());
