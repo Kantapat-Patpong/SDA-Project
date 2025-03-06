@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import BossZone from './components/boss_zone';
-import PlayerZone from './components/player_zone';
-import './App.css'
+import React, { useState, useEffect } from "react";
+import BossZone from "./components/boss_zone";
+import PlayerZone from "./components/player_zone";
+import "./App.css";
 
-const App = () => { 
+const App = () => {
   const [bossHealth, setBossHealth] = useState("Loading...");
 
   // ฟังก์ชันดึงค่า HP ของบอส
   async function fetchBossHP() {
     try {
-      const response = await fetch("https://get-boss-hp-617724883475.asia-southeast1.run.app/boss-hp");
+      const response = await fetch(
+        "https://get-boss-hp-617724883475.asia-southeast1.run.app/boss-hp"
+      );
       const data = await response.json();
-      console.log(data)
-      if (data.current_hp) {
+      console.log(data);
+      if (data.current_hp >= 0) {
         setBossHealth(data.current_hp);
       } else {
         setBossHealth("Error loading HP");
@@ -29,12 +31,15 @@ const App = () => {
   }, []);
   async function attackBoss(damage) {
     try {
-      const response = await fetch("https://record-damage-617724883475.asia-southeast1.run.app/attack", {
+      const response = await fetch(
+        "https://record-damage-617724883475.asia-southeast1.run.app/attack",
+        {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ damage: damage }),
-          mode: "cors"
-      });
+          mode: "cors",
+        }
+      );
 
       const result = await response.json();
       console.log(result);
@@ -43,7 +48,7 @@ const App = () => {
     }
   }
   return (
-    <div className='container'>
+    <div className="container">
       <BossZone bossHealth={bossHealth} />
       <PlayerZone onDamage={attackBoss} />
     </div>
