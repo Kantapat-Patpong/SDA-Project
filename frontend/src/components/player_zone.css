@@ -1,8 +1,8 @@
-.player_zone {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+.player-zone {
+    border-radius: 10px;
+    padding: 20px;
+    background: gray;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 .text{
@@ -12,7 +12,19 @@
 }
 
 .text-current{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-top: 0px;
+    text-align: center;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #660000;
     font-size: 40px;
     font-weight: bold;
     color: white;
+}
+
+input {
+    padding: 10px;
+    border-radius: 10px;
+    border-color: unset;
 }

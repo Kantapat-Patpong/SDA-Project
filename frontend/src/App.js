@@ -17,7 +17,7 @@ const App = () => {
       if (data.current_hp >= 0) {
         setBossHealth(data.current_hp);
       } else {
-        setBossHealth("Error loading HP");
+        setBossHealth(0);
       }
     } catch (error) {
       console.error("Error fetching boss HP:", error);

@@ -14,7 +14,7 @@ const PlayerZone = ({ onDamage }) => {
     setUserInput(input);
 
     if (letterDetection(input, currentLetter)) {
-      await onDamage(1); // กำหนดค่าความเสียหาย
+      await onDamage(10000); // กำหนดค่าความเสียหาย
       setDamage(damage + 1);
       setCurrentLetter(nextLetter);
       setNextLetter(randomLetter());

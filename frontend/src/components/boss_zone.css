@@ -1,18 +1,34 @@
 img {
-    width: 50%;
+    width: 300px;
     height: 50%;
 }
 
-.boss_zone {
+.boss-zone {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+    flex-direction: column;
+    margin: 80px;
 }
 
 h2 {
     font-size: 30px;
     font-weight: bold;
     color: white;
-    width: 100%;
+    width: fit-content !important;
 }
+
+.bloodgauge {
+    width: 300px;
+    height: 20px;
+    background-color: #444;
+    border: 2px solid #222;
+    border-radius: 5px;
+    margin: 10px auto;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .bloodleft {
+    height: 100%;
+    background-color: red;
+    transition: width 0.5s ease-in-out;
+  }
